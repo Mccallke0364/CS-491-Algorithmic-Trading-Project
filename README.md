@@ -1,7 +1,7 @@
 
 ## Quick Setup
 * TLDR quick setup/guide with project opened in VS Code
-    1. `python -m venv .`
+    1. `python -m venv .venv`
     2. Unix: `source bin/activate`. Windows: `Scripts\Activate.ps1`. For Windows, you may have to set a security exception in a Powershell terminal. `set-executionpolicy remotesigned`
     3. `pip install -r requirements.txt`
     4. If using Juypter Notebook
