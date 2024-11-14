@@ -1,3 +1,14 @@
+
+## Quick Setup
+* TLDR quick setup/guide with project opened in VS Code
+    1. `python -m venv .`
+    2. Unix: `source bin/activate`. Windows: `Scripts\Activate.ps1`. For Windows, you may have to set a security exception in a Powershell terminal. `set-executionpolicy remotesigned`
+    3. `pip install -r requirements.txt`
+    4. If using Juypter Notebook
+        * `python -m ipykernel install --user --name=project_kernel`
+    5. You may have to restart VS Code to do the next step
+    6. For every Jupyter Notebook, select the ipykernel
+
 # Algorithmic Trading Project with Government and Market Data
 This project uses a combination of government trade insights, market data, and economic indicators to build an LSTM-based algorithmic trading model. The model leverages data from the Benzinga Government Trades API, Polygon.io for market data, and the USASpending API to predict market movements and make informed buy/sell decisions.
 
