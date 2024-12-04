@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import pandas as pd
 from data_collection.polygon_data import get_data_for_multiple_tickers
 from data_collection.bezinga_data import get_government_trades_data
 from data_collection.usaspending_data import get_usaspending_data
@@ -31,7 +32,18 @@ usaspending_data = get_usaspending_data(filepath)
 # # Process data
 # combined_data = combine_data(stock_data, usaspending_data)
 # print(combined_data.head())
+# print(stock_data.head())
+merged_data = usaspending_data
+for data_frame in stock_data:
+    print(type(stock_data))
+    print(type(data_frame))
+    print(usaspending_data.head())
+    print(stock_data[data_frame].head())
+    merged_data = pd.merge(merged_data, stock_data[data_frame] ,right_on="t", left_index=True)
+
+print(merged_data.head())
 merged_data = merge_data(stock_data, usaspending_data)
+print(merged_data)
 
 # Initialize lists to store sequences for multiple stocks
 X_list, y_list = [], []
