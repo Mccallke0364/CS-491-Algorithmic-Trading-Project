@@ -24,8 +24,10 @@ zip_file_path = '/Users/collinkozlowski/CS 485/CS-491-Algorithmic-Trading-Projec
 
 # Fetch data
 stock_data = get_data_for_multiple_tickers(tickers, start_date, end_date)
+print(stock_data.head())
 #government_trades = get_government_trades_data(tickers, start_date, end_date)
 usaspending_data = get_usaspending_data_from_zip(zip_file_path)
+print(stock_data.head())
 
 # Process data
 combined_data = combine_data(stock_data, usaspending_data)
