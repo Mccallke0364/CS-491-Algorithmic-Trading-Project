@@ -8,6 +8,9 @@ from alpaca.trading.enums import OrderSide, TimeInForce
 import pandas as pd
 from alpaca.data import StockHistoricalDataClient, TimeFrame
 from alpaca.data.requests import StockQuotesRequest, StockBarsRequest
+from alpaca.trading.requests import GetOrdersRequest
+from alpaca.trading.enums import OrderStatus
+
 
 # %%
 # Alpaca API credentials
@@ -20,7 +23,7 @@ trading_client = TradingClient(ALPACA_API_KEY, ALPACA_SECRET_KEY)
 
 alpaca = api.REST(ALPACA_API_KEY, ALPACA_SECRET_KEY, BASE_URL)
 
-# %%
+# what to do if you can't get stock 
 def accountCash():
     account = alpaca.get_account()
     account_cash = float(account.cash)
@@ -28,14 +31,18 @@ def accountCash():
     print(account_cash)
 accountCash()
 
-# %%
+# Sympobl not avaible Unit test 
 def get_latest_stock_price(symbol):
     latest_trade = alpaca.get_latest_trade(symbol)
    
     return latest_trade.p
 lastest_apple = get_latest_stock_price(symbol='AAPL')
+def closePostion(symbol):
+    alpaca.close_position(symbol)  
 
-# %%
+
+
+# buy order exeptions 
 def buyorder(symbol,qty):
     # preparing market order
     market_order_data = MarketOrderRequest(
@@ -51,12 +58,9 @@ def buyorder(symbol,qty):
                 )
     return market_order
         # Time in force (good till canceled)
-
-
-
-# %%
+# how to handle empty or if alpaca is down 
 #gets current postion and than return it to you in an array with json inside
-def getPostionPrice():
+def getPostion():
     postions = alpaca.list_positions()
     return postions
 
@@ -68,20 +72,21 @@ def getcash():
 
 # %%
 
-
+#postion diddn't close 
 def sellAll():
     print(alpaca.close_all_positions())
 
 
-# %%
+#couldn't sell 
 def sellOrder(symbol,qty):
     alpaca.submit_order(
         symbol=symbol,           # The ticker symbol for the asset (e.g., 'BTCUSD')
-        qty=qty,                 # Quantity of the asset to sell
+        qty=int(qty),                 # Quantity of the asset to sell
         side='sell',             # The side of the order (sell)
         type='market',           # Order type (market order in this case)
         time_in_force='gtc'      # Time in force (good till canceled)
     )
+#sell stop wash
 def sellStop(symbol,price,qty):
     market_order_data = StopOrderRequest(
                         symbol=symbol,
@@ -95,6 +100,7 @@ def sellStop(symbol,price,qty):
                     order_data=market_order_data
                 )
     return market_order
+#date and time not got 
 def getData(symbol):
     start_date = datetime.datetime.now() - datetime.timedelta(41)
     start_time = pd.to_datetime(start_date.date()).tz_localize('America/New_York')

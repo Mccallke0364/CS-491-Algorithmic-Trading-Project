@@ -5,3 +5,4 @@ alpaca-trade-api
 matplotlib
 ipykernel
 scikit-learn
+alpaca-py
