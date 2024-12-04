@@ -33,9 +33,15 @@ def get_historical_stock_data(ticker, start_date, end_date):
         data = response.json()
         if 'results' in data and data['results']:
             df = pd.DataFrame(data['results'])
-            df['t'] = pd.to_datetime(df['t'], unit='ms')
+            # print(df.t[3])
+            df['t_a'] = pd.to_datetime(df['t'], unit ="ms", yearfirst=True)
+            df["t"] =  df['t_a'].dt.date
+            
             df.set_index('t', inplace=True)
-            return df[['o', 'h', 'l', 'c', 'v']]
+            print(type(df.index))
+            df.rename(columns={'o': f'o_{ticker}', 'h': f'h_{ticker}', 'l': f'l_{ticker}', 'c': f'c_{ticker}','v':f'v_{ticker}'}, inplace=True)
+            # print(df.head())
+            return df[[f'o_{ticker}', f'h_{ticker}', f'l_{ticker}', f'c_{ticker}',f'v_{ticker}']]#df[['o', 'h', 'l', 'c', 'v']]
         else:
             print(f"No data available for {ticker} in the specified date range.")
             return pd.DataFrame()

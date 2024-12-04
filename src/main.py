@@ -19,8 +19,8 @@ API_KEY_USASPENDING = os.getenv('USASPENDING_API_KEY')
 # TODO use Principle Component analysis
 tickers = ['NGL', 'TSLA', 'AAPL', 'V', 'NSRGY']
 start_date = '2023-10-01'
-end_date = '2024-09-30'
-filepath = '/Users/collinkozlowski/CS 485/CS-491-Algorithmic-Trading-Project/src/data_collection/usaspending_data.csv'
+end_date = '2024-12-30'
+filepath = 'data_collection/usaspending_data.csv'
 
 
 # Fetch data
@@ -38,13 +38,17 @@ for data_frame in stock_data:
     print(type(stock_data))
     print(type(data_frame))
     print(usaspending_data.head())
+    print(type(stock_data[data_frame].index[0]))
+    print(type(usaspending_data.index[0]))
     print(stock_data[data_frame].head())
-    merged_data = pd.merge(merged_data, stock_data[data_frame] ,right_on="t", left_index=True)
+    merged_data = pd.merge(merged_data, stock_data[data_frame], right_index=True, left_index=True)
+    print(merged_data)
 
-print(merged_data.head())
-merged_data = merge_data(stock_data, usaspending_data)
 print(merged_data)
-
+merged_data.rename_axis("Date", inplace=True)
+# merged_data = merge_data(stock_data, usaspending_data)
+# print(merged_data)
+# Exception(stop)
 # Initialize lists to store sequences for multiple stocks
 X_list, y_list = [], []
 
