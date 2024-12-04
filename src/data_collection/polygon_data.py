@@ -2,6 +2,7 @@
 import requests
 import time
 import pandas as pd
+import numpy as np
 import os
 from dotenv import load_dotenv
 
@@ -29,6 +30,7 @@ def get_historical_stock_data(ticker, start_date, end_date):
 
         data = response.json()
 
+        data = response.json()
         if 'results' in data and data['results']:
             df = pd.DataFrame(data['results'])
             df['t'] = pd.to_datetime(df['t'], unit='ms')

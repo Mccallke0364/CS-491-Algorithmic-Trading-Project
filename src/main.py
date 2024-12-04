@@ -1,9 +1,10 @@
 import os
 from dotenv import load_dotenv
+import pandas as pd
 from data_collection.polygon_data import get_data_for_multiple_tickers
 from data_collection.bezinga_data import get_government_trades_data
-from data_collection.usaspending_data import get_usaspending_data_from_zip
-from preprocessing.preprocess_data import combine_data, create_sequences
+from data_collection.usaspending_data import get_usaspending_data
+from preprocessing.preprocess_data import merge_data, create_sequences
 from model.lstm_model import build_model, train_model
 from model.utils import generate_multi_stock_signals, plot_training_history
 
@@ -17,26 +18,37 @@ API_KEY_USASPENDING = os.getenv('USASPENDING_API_KEY')
 # Arbitrarily picked 5 defense and construction stocks to demonstrate for now
 # TODO use Principle Component analysis
 tickers = ['NGL', 'TSLA', 'AAPL', 'V', 'NSRGY']
-start_date = '2024-01-01'
-end_date = '2024-12-31'
-zip_file_path = '/Users/collinkozlowski/CS 485/CS-491-Algorithmic-Trading-Project/src/data_collection/raw_data/FY2024_All_Contracts_Full_20241106.zip'
+start_date = '2023-10-01'
+end_date = '2024-09-30'
+filepath = '/Users/collinkozlowski/CS 485/CS-491-Algorithmic-Trading-Project/src/data_collection/usaspending_data.csv'
 
 
 # Fetch data
 stock_data = get_data_for_multiple_tickers(tickers, start_date, end_date)
-print(stock_data.head())
+print('')
 #government_trades = get_government_trades_data(tickers, start_date, end_date)
-usaspending_data = get_usaspending_data_from_zip(zip_file_path)
-print(stock_data.head())
+usaspending_data = get_usaspending_data(filepath)
 
-# Process data
-combined_data = combine_data(stock_data, usaspending_data)
-print(combined_data.head())
+# # Process data
+# combined_data = combine_data(stock_data, usaspending_data)
+# print(combined_data.head())
+# print(stock_data.head())
+merged_data = usaspending_data
+for data_frame in stock_data:
+    print(type(stock_data))
+    print(type(data_frame))
+    print(usaspending_data.head())
+    print(stock_data[data_frame].head())
+    merged_data = pd.merge(merged_data, stock_data[data_frame] ,right_on="t", left_index=True)
+
+print(merged_data.head())
+merged_data = merge_data(stock_data, usaspending_data)
+print(merged_data)
 
 # Initialize lists to store sequences for multiple stocks
 X_list, y_list = [], []
 
-for ticker, df in combined_data.items():
+for ticker, df in merged_data.items():
     df['SMA_10'] = df['c'].rolling(window=10).mean()
     df['SMA_50'] = df['c'].rolling(window=50).mean()
     df['Returns'] = df['c'].pct_change()
@@ -86,3 +98,4 @@ for i, ticker in enumerate(tickers):
 #   - hold or buy stocks that remained in the list
 #   - sell stocks that are no longer in the list
 #   - buy stocks that were added to the list
+
