@@ -1,18 +1,12 @@
 import os
-from dotenv import load_dotenv
+import numpy as np
 import pandas as pd
 from data_collection.polygon_data import get_data_for_multiple_tickers
-from data_collection.bezinga_data import get_government_trades_data
+#from data_collection.bezinga_data import get_government_trades_data
 from data_collection.usaspending_data import get_usaspending_data
 from preprocessing.preprocess_data import merge_data, create_sequences
 from model.lstm_model import build_model, train_model
 from model.utils import generate_multi_stock_signals, plot_training_history
-
-# Load API keys and URLs from the .env file
-load_dotenv()
-API_KEY_POLYGON = os.getenv('POLYGON_API_KEY')
-API_KEY_BEZINGA = os.getenv('BENZINGA_API_KEY')
-API_KEY_USASPENDING = os.getenv('USASPENDING_API_KEY')
 
 # Define tickers and date range
 # Arbitrarily picked 5 defense and construction stocks to demonstrate for now
@@ -41,46 +35,50 @@ for data_frame in stock_data:
     print(type(stock_data[data_frame].index[0]))
     print(type(usaspending_data.index[0]))
     print(stock_data[data_frame].head())
-    merged_data = pd.merge(merged_data, stock_data[data_frame], right_index=True, left_index=True)
+    df = stock_data[data_frame]  
+
+    merged_data = pd.merge(merged_data, df, right_index=True, left_index=True)
     print(merged_data)
 
 print(merged_data)
+with open("merged_data.txt", "a") as f:
+    f.write(merged_data.head(50).to_string())
 merged_data.rename_axis("Date", inplace=True)
 # merged_data = merge_data(stock_data, usaspending_data)
 # print(merged_data)
 # Exception(stop)
 # Initialize lists to store sequences for multiple stocks
-X_list, y_list = [], []
 
-for ticker, df in merged_data.items():
-    df['SMA_10'] = df['c'].rolling(window=10).mean()
-    df['SMA_50'] = df['c'].rolling(window=50).mean()
-    df['Returns'] = df['c'].pct_change()
-    df.dropna(inplace=True)
-    X, y = create_sequences(df, window_size=30)
-    X_list.append(X)
-    y_list.append(y)
+# X_list, y_list = [], []
 
-X_multi = np.concatenate(X_list, axis=0)
-y_multi = np.concatenate(y_list, axis=0)
+# X, y = create_sequences(merged_data)
+# X_list.append(X)
+# y_list.append(y)
+# print("complete_1")
+# if not X_list:
+#     X_multi = np.concatenate(X_list, axis=0)
+#     y_multi = np.concatenate(y_list, axis=0)
+# print("complete_2")
+# num_stocks = len(tickers)
+# y_multi = np.repeat(y_multi, num_stocks).reshape(-1, num_stocks)
 
-num_stocks = len(tickers)
-y_multi = np.repeat(y_multi, num_stocks).reshape(-1, num_stocks)
-
-print(f"X_multi shape: {X_multi.shape}, y_multi shape: {y_multi.shape}")
-
+# print(f"X_multi shape: {X_multi.shape}, y_multi shape: {y_multi.shape}")
+train_data, test_data = split_train_test(merged_data)
+train_seq, train_label = create_sequence(train_data)
+test_seq, test_label = create_sequence(test_data)
+build_model((train_seq.shape[1],train_seq.shape[2]))
 # Build and train the model
 input_shape = (X_multi.shape[1], X_multi.shape[2])
 model = build_model(input_shape, num_stocks)
 history = train_model(model, X_multi, y_multi, epochs=20, batch_size=64, validation_split=0.2)
-
+print("complete_3")
 # Plot training history
 plot_training_history(history)
 
 # Generate buy/sell signals
 latest_data = X_multi[-1].reshape(1, X_multi.shape[1], X_multi.shape[2])
 predicted_returns, signals = generate_multi_stock_signals(latest_data, model)
-
+print("complete_4")
 for i, ticker in enumerate(tickers):
     print(f"{ticker}: Predicted Return: {predicted_returns[i]:.2%}, Signal: {signals[i]}")
 

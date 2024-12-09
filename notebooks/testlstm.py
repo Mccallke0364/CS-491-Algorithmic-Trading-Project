@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -10,8 +9,6 @@ import matplotlib.pyplot as plt
 #POLYGON DATA COLLECTION
 # Functions for retrieving and processing Polygon.io data
 
-POLYGON_API_URL = os.getenv('POLYGON_API_URL')
-POLYGON_API_KEY = os.getenv('POLYGON_API_KEY')
 
 def get_historical_stock_data(ticker, start_date, end_date):
     """
@@ -168,7 +165,7 @@ from keras.layers import LSTM, Dense, Dropout
 from keras.optimizers import RMSprop
 from keras.losses import Huber
 
-def build_model(input_shape, num_stocks):
+def build_model(input_shape, num_stocks=5):
     """
     Builds and compiles an LSTM model.
 
@@ -251,7 +248,6 @@ def plot_training_history(history):
 
 def main():
     # Load API keys and URLs from the .env file
-    load_dotenv()
     API_KEY_POLYGON = os.getenv('POLYGON_API_KEY')
     API_KEY_USASPENDING = os.getenv('USASPENDING_API_KEY')
 

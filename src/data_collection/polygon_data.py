@@ -4,11 +4,9 @@ import time
 import pandas as pd
 import numpy as np
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-POLYGON_API_URL = os.getenv('POLYGON_API_URL')
-POLYGON_API_KEY = os.getenv('POLYGON_API_KEY')
+POLYGON_API_KEY='q6YjvzTWAp_OkhFvfxwfgrtIVOpddl_V'
+POLYGON_API_URL='https://api.polygon.io'
 
 def get_historical_stock_data(ticker, start_date, end_date):
     """
@@ -37,11 +35,19 @@ def get_historical_stock_data(ticker, start_date, end_date):
             df['t_a'] = pd.to_datetime(df['t'], unit ="ms", yearfirst=True)
             df["t"] =  df['t_a'].dt.date
             
+            
             df.set_index('t', inplace=True)
             print(type(df.index))
             df.rename(columns={'o': f'o_{ticker}', 'h': f'h_{ticker}', 'l': f'l_{ticker}', 'c': f'c_{ticker}','v':f'v_{ticker}'}, inplace=True)
             # print(df.head())
-            return df[[f'o_{ticker}', f'h_{ticker}', f'l_{ticker}', f'c_{ticker}',f'v_{ticker}']]#df[['o', 'h', 'l', 'c', 'v']]
+            
+          
+            df[f'{ticker}_SMA_10'] = df[f'c_{ticker}'].rolling(window=10).mean()
+            df[f'{ticker}_SMA_50'] = df[f'c_{ticker}'].rolling(window=50).mean()
+            df[f'{ticker}_Returns'] = df[f'c_{ticker}'].pct_change()
+            df.dropna(inplace=True)
+            
+            return df[[f'o_{ticker}', f'h_{ticker}', f'l_{ticker}', f'c_{ticker}',f'v_{ticker}', f'{ticker}_SMA_10',f'{ticker}_SMA_50',f'{ticker}_Returns']]#df[['o', 'h', 'l', 'c', 'v']]
         else:
             print(f"No data available for {ticker} in the specified date range.")
             return pd.DataFrame()
