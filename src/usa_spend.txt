@@ -1,0 +1,52 @@
+            total_obligations  total_outlayed_amount                         awarding_agency_name                                 recipient_name action_type
+Date                                                                                                                                                        
+2024-10-01       4.595158e+05               86307.87  Department of Housing and Urban Development                            CITY OF GLENS FALLS    REVISION
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                   FREEDOM MORTGAGE CORPORATION         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                        NATIONSTAR MORTGAGE LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                        NATIONSTAR MORTGAGE LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                    LAKEVIEW LOAN SERVICING LLC         NEW
+2024-10-01       3.563597e+07            35607472.24                      Department of Education           RIVERSIDE COMMUNITY COLLEGE DISTRICT    REVISION
+2024-10-01       1.133382e+07            11333935.00                      Department of Education                  SOUTHEASTERN UNIVERSITY, INC.    REVISION
+2024-10-01       2.899215e+08             5540650.60                      Department of Education              DEPARTMENT OF EDUCATION TENNESSEE    REVISION
+2024-10-01       1.426019e+07            14263691.65                      Department of Education                            NATIONAL UNIVERSITY    REVISION
+2024-10-01       0.000000e+00                    NaN                Small Business Administration                            REDACTED DUE TO PII    REVISION
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                 AMERIHOME MORTGAGE COMPANY LLC         NEW
+2024-10-01       1.295500e+05               77631.31     Institute of Museum and Library Services                             CLEMSON UNIVERSITY    REVISION
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                 UNITED WHOLESALE MORTGAGE, LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                   FIRST COMMUNITY MORTGAGE INC         NEW
+2024-10-01       2.554877e+06             2514529.00                      Department of Education                              NELSON UNIVERSITY    REVISION
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                           CLICK N' CLOSE, INC.         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                 UNITED WHOLESALE MORTGAGE, LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                        NATIONSTAR MORTGAGE LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development       CARDINAL FINANCIAL COMPANY, LIMITED PART         NEW
+2024-10-01       8.494921e+06             7600000.00                      Department of Education          KIRKWOOD COMMUNITY COLLEGE FOUNDATION    REVISION
+2024-10-01       5.956306e+05                    NaN      Department of Health and Human Services                     KICKAPOO TRIBE OF OKLAHOMA         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                       UNION HOME MORTGAGE CORP         NEW
+2024-10-01       2.957230e+05                    NaN              Environmental Protection Agency       YUKON RIVER INTER-TRIBAL WATERSHED COUNC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                   FREEDOM MORTGAGE CORPORATION         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                      EQUITY PRIME MORTGAGE LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                   BANCO POPULAR DE PUERTO RICO         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                    LAKEVIEW LOAN SERVICING LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                                     US BANK NA         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                      TEXAS VETERANS LAND BOARD         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                                     US BANK NA         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                 AMERIHOME MORTGAGE COMPANY LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                     PENNYMAC LOAN SERVICES LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                     PENNYMAC LOAN SERVICES LLC         NEW
+2024-10-01       1.568130e+05                    NaN                      Department of Education  THE THOMAS MORE COLLEGE OF LIBERAL ARTS, INC.    REVISION
+2024-10-01       1.568130e+05                    NaN                      Department of Education  THE THOMAS MORE COLLEGE OF LIBERAL ARTS, INC.         NEW
+2024-10-01       0.000000e+00                    NaN                Small Business Administration                                  LUACH CLASSES         NEW
+2024-10-01       0.000000e+00                    NaN                        Department of Defense                    MILITARY & VET AFFAIRS DEPT         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                   FREEDOM MORTGAGE CORPORATION         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                            FLAGSTAR BANK, N.A.         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                     PENNYMAC LOAN SERVICES LLC         NEW
+2024-10-01       1.903000e+06                    NaN                        Department of Defense     NORTH CAROLINA DEPARTMENT OF PUBLIC SAFETY         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                           ROCKET MORTGAGE, LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                                       GMFS LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                         TOWNE MORTGAGE COMPANY         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                      EQUITY PRIME MORTGAGE LLC         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                     FIRST COLONY MORTGAGE CORP         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                         TOWNE MORTGAGE COMPANY         NEW
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                     PENNYMAC LOAN SERVICES LLC         NEW
+2024-10-01       3.640674e+06             2540542.17      Department of Health and Human Services                          UNIVERSITY OF FLORIDA    REVISION
+2024-10-01       0.000000e+00                    NaN  Department of Housing and Urban Development                                  SHOREHAM BANK         NEW
