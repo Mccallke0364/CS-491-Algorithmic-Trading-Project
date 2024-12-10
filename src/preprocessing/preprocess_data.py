@@ -33,7 +33,7 @@ def merge_data(stock_data, gov_data):
 
 def split_train_test(df):
     Ms = MinMaxScaler()
-    df[df.columns]=Ms.fit_transform(df)
+    df[df.columns] = Ms.fit_transform(df)
 
     training_size= round(len(df)*0.80)
     train_data= df[:training_size]
@@ -55,8 +55,18 @@ def create_sequences(df, window_size=30, column_A="Date"):
     Returns:
     np.array, np.array: The reshaped features and targets.
     """
-    for row in range(0, len(df), window_size):
-        
+    sequences = []
+    labels = []
+    strt_idx = 0
+    for stp_idx in range(window_size, len(df)):
+        sequences.append(df.iloc[strt_idx:stp_idx].values)
+        labels.append(df.iloc[stp_idx].values)
+        strt_idx+=1
+    return(np.array(sequences), np.array(labels))
+    
+
+
+    #previous thought which was close but not complete
     print(df)
     values = df.values#drop(columns=[column_A]).values
     X, y = [], []
