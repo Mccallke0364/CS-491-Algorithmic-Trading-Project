@@ -13,7 +13,27 @@ from alpaca.data import StockHistoricalDataClient, TimeFrame
 from alpaca.data.requests import StockQuotesRequest, StockBarsRequest
 from alpaca.trading.requests import GetOrdersRequest
 from alpaca.trading.enums import OrderStatus
-
+# This is the format of the postion Jason object 
+'''
+[Position({   'asset_class': 'us_equity',
+    'asset_id': 'b0b6dd9d-8b9b-48a9-ba46-b9d54906e415',
+    'asset_marginable': True,
+    'avg_entry_price': '250.2',
+    'change_today': '0.008193082294063',
+    'cost_basis': '50040',
+    'current_price': '249.8',
+    'exchange': 'NASDAQ',
+    'lastday_price': '247.77',
+    'market_value': '49960',
+    'qty': '200',
+    'qty_available': '200',
+    'side': 'long',
+    'symbol': 'AAPL',
+    'unrealized_intraday_pl': '-80',
+    'unrealized_intraday_plpc': '-0.0015987210231815',
+    'unrealized_pl': '-80',
+    'unrealized_plpc': '-0.0015987210231815'})]
+'''
 
 app = Flask(__name__)
 CORS(app)

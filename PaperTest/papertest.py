@@ -115,6 +115,9 @@ def getData(symbol):
     bars_df = data_client.get_stock_bars(request_params).df.tz_convert('America/New_York', level=1)
     return bars_df
 print(getData("AAPL"))
+
+if __name__ == '__main__':
+    print(getPostion())
 '''
 symbol = "SPY"
 price = get_latest_stock_price(symbol)
