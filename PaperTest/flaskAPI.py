@@ -4,7 +4,7 @@ from papertest import getPostion
 app = Flask(__name__)
 
 
-@app.route('/positions', methods=['GET'])
+@app.route('/get_stock_data', methods=['GET'])
 def get_positions():
     try:
         # Fetch positions using the getPosition function
