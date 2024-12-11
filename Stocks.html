@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stocks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        nav ul {
+            background: #444;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        nav ul li {
+            flex: 1;
+            text-align: center;
+        }
+        nav ul li a {
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            display: block;
+            text-decoration: none;
+            background-color: rgba(68, 68, 68, 0.6);
+        }
+        nav ul li a:hover {
+            background-color: rgba(85, 85, 85, 1);
+        }
+        nav ul li a.active {
+            background-color: rgba(85, 85, 85, 1);
+            font-weight: bold;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            height: calc(100vh - 100px);
+        }
+        .left, .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .left {
+            border-right: 1px solid #ccc;
+        }
+        .text-module {
+            width: 80%;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: #f9f9f9;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .text-module:hover {
+            background: #f0f0f0;
+        }
+        .right {
+            font-size: 1.5rem;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stock market analysis system</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="MainPage.html">Main Page</a></li>
+            <li><a href="Government.html">Government Spending</a></li>
+            <li><a href="Stocks.html" class="active">Stocks Information</a></li>
+            <li><a href="Recommendations.html">Recommendation</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="left">
+            <div class="text-module" onmouseover="showDetails('Stock 1')" onmouseout="hideDetails()">Stock 1</div>
+            <div class="text-module" onmouseover="showDetails('Stock 2')" onmouseout="hideDetails()">Stock 2</div>
+            <div class="text-module" onmouseover="showDetails('Stock 3')" onmouseout="hideDetails()">Stock 3</div>
+            <div class="text-module" onmouseover="showDetails('Stock 4')" onmouseout="hideDetails()">Stock 4</div>
+            <div class="text-module" onmouseover="showDetails('Stock 5')" onmouseout="hideDetails()">Stock 5</div>
+        </div>
+        <div class="right" id="details">
+            Hover to view stock information.
+        </div>
+    </main>
+
+    <script>
+        const detailsDiv = document.getElementById('details');
+        function showDetails(stockName) {
+            detailsDiv.textContent = `${stockName} information`;
+        }
+
+        function hideDetails() {
+            detailsDiv.textContent = 'Hover to view stock information.';
+        }
+    </script>
+</body>
+</html>

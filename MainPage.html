@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MainPage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            background: #444;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        nav ul li {
+            flex: 1;
+            text-align: center;
+        }
+        nav ul li a {
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            display: block;
+            text-decoration: none;
+            background-color: rgba(68, 68, 68, 0.6);
+        }
+        nav ul li a:hover {
+            background-color: rgba(85, 85, 85, 1);
+        }
+        nav ul li a.active {
+            background-color: rgba(85, 85, 85, 1);
+            font-weight: bold;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+        }
+        .welcome-text {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stock market analysis system</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="MainPage.html" class="active">Main Page</a></li>
+            <li><a href="Government.html">Government Spending</a></li>
+            <li><a href="Stocks.html">Stocks Information</a></li>
+            <li><a href="Recommendations.html">Recommendation</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="welcome-text">
+            Welcome to our stock market analysis system, start your wonderful stock market journey here!
+        </div>
+    </main>
+</body>
+</html>

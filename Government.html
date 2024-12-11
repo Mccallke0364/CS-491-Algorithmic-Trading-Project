@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Spending</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@latest/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            background: #444;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        nav ul li {
+            flex: 1;
+            text-align: center;
+        }
+        nav ul li a {
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            display: block;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            background-color: rgba(85, 85, 85, 1);
+        }
+        nav ul li a.active {
+            background-color: rgba(85, 85, 85, 1);
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px;
+        }
+        
+        #us-map-container {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: #f9f9f9;
+            height: 600px;
+        }
+        
+        .chart-container {
+            height: 500px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stock market analysis system</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="MainPage.html">Main Page</a></li>
+            <li><a href="Government.html" class="active">Government Spending</a></li>
+            <li><a href="Stocks.html">Stocks Information</a></li>
+            <li><a href="Recommendations.html">Recommendation</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="us-map-container"></div>
+        <div id="pie-chart" class="chart-container"></div>
+        <div id="bar-chart" class="chart-container"></div>
+    </main>
+    <script>
+        // 初始化图表函数
+        function initChart(id, option) {
+            const chart = echarts.init(document.getElementById(id));
+            chart.setOption(option);
+        }
+
+        initChart('pie-chart', {
+            title: { text: 'Proportion of fiscal expenditure (2024)', left: 'center' },
+            tooltip: { trigger: 'item' },
+            legend: { bottom: '10%' },
+            series: [{
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    { value: 1.72, name: 'Transportation' },
+                    { value: 3.41, name: 'Education' },
+                    { value: 5.1, name: 'General Government' },
+                    { value: 11.29, name: 'Health' },
+                    { value: 13.44, name: 'National Defense' },
+                    { value: 33.61, name: 'Social Security & Medicare' },
+                    { value: 31.42, name: 'Others' }
+                ]
+            }]
+        });
+
+        initChart('bar-chart', {
+            title: { text: 'Total Spending by Year (2017-2024)', left: 'center' },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                axisLabel: { rotate: 45 }  // 使X轴标签倾斜
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '${value} Trillion'
+                }
+            },
+            series: [{
+                data: [6.1, 6.3, 6.6, 9.1, 10.1, 9.3, 9.3, 9.7],
+                type: 'bar',
+                color: '#3ca2d2'
+            }]
+        });
+
+        fetch('USA.json')
+            .then(response => response.json())
+            .then(usaJson => {
+                echarts.registerMap('USA', usaJson);
+
+                const stateData = [
+                    { name: 'ND', value: 8601814010, count: 4299 },
+                    { name: 'NV', value: 3837483212, count: 2834 },
+                    { name: 'OH', value: 16533184107, count: 17378 },
+                    { name: 'GU', value: 344738008.2, count: 491 },
+                    { name: 'NY', value: 33016045792, count: 34188 },
+                    { name: 'HI', value: 1916519617, count: 2646 },
+                    { name: 'IN', value: 18824173556, count: 9164 },
+                    { name: 'NE', value: 3696438447, count: 32425 },
+                    { name: 'WV', value: 2932852139, count: 4944 },
+                    { name: 'FL', value: 32928310632, count: 55915 },
+                    { name: 'AR', value: 5290638281, count: 9826 },
+                    { name: 'ME', value: 2246185951, count: 2020 },
+                    { name: 'CT', value: 10882648431, count: 4684 },
+                    { name: 'SD', value: 1185665793, count: 17638 },
+                    { name: 'WY', value: 732679718.6, count: 2133 },
+                    { name: 'LA', value: 8212553644, count: 15019 },
+                    { name: 'MT', value: 1547099968, count: 2904 },
+                    { name: 'MI', value: 16549431600, count: 39791 },
+                    { name: 'NJ', value: 11519280237, count: 8502 },
+                    { name: 'MP', value: 168230028.3, count: 155 },
+                    { name: 'UT', value: 3130395788, count: 3731 },
+                    { name: 'SC', value: 13772568491, count: 6144 },
+                    { name: 'VI', value: 3616888802, count: 250 },
+                    { name: 'DE', value: 1471076367, count: 1020 },
+                    { name: 'CA', value: 66304282581, count: 52321 },
+                    { name: 'NH', value: 1453236193, count: 1608 },
+                    { name: 'OR', value: 7726594787, count: 7293 },
+                    { name: 'TX', value: 26537934060, count: 70265 },
+                    { name: 'PR', value: 9743277453, count: 4110 },
+                    { name: 'KY', value: 16763483361, count: 7467 },
+                    { name: 'NM', value: 5669871837, count: 4482 },
+                    { name: 'MS', value: 4311733403, count: 9499 },
+                    { name: 'DC', value: 8429511074, count: 8014 },
+                    { name: 'MO', value: 9423983356, count: 32029 },
+                    { name: 'WI', value: 11338539301, count: 10968 },
+                    { name: 'NC', value: 17111415259, count: 20207 },
+                    { name: 'RI', value: 1727429390, count: 2098 },
+                    { name: 'OK', value: 6180539316, count: 41104 },
+                    { name: 'ID', value: 2624387514, count: 4625 },
+                    { name: 'GA', value: 12382110362, count: 24216 },
+                    { name: 'MN', value: 21592461458, count: 18734 },
+                    { name: 'PA', value: 29076127146, count: 16729 },
+                    { name: 'AK', value: 3135814834, count: 2664 },
+                    { name: 'MD', value: 9024766123, count: 11548 },
+                    { name: 'IL', value: 15122385738, count: 43671 },
+                    { name: 'TN', value: 12638423329, count: 11717 },
+                    { name: 'WA', value: 9962495628, count: 12748 },
+                    { name: 'MA', value: 10199801830, count: 21256 },
+                    { name: 'AL', value: 6697694908, count: 7200 },
+                    { name: 'IA', value: 4169370125, count: 12789 },
+                    { name: 'CO', value: 7168028326, count: 12541 },
+                    { name: 'VT', value: 1049824136, count: 1546 },
+                    { name: 'AS', value: 157204317.6, count: 173 },
+                    { name: 'VA', value: 15511806060, count: 37521 },
+                    { name: 'AZ', value: 11324699742, count: 4848 },
+                    { name: 'KS', value: 3111155712, count: 105162 }
+                ];
+
+                echarts.registerMap('USA', usaJson);
+
+                initChart('us-map-container', {
+                    title: { text: 'State expenditures in the United States (2024)', left: 'center' },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: function (params) {
+                            const state = stateData.find(item => item.name === params.name);
+                            if (state) {
+                                return `<strong>${params.name}</strong><br/>Expenditure: ${state.value.toLocaleString()} dollar<br/>Count: ${state.count}`;
+                            }
+                            return `<strong>${params.name}</strong><br/>Expenditure: No data available`;
+                        }
+                    },
+                    visualMap: {
+                        show: false,
+                        min: 0,
+                        max: 50000,
+                        calculable: true,
+                        color: ['#fbffc4', '#999', '#ffb654']
+                    },
+                    series: [{
+                        type: 'map',
+                        map: 'USA',
+                        label: {
+                            show: true,
+                            formatter: '{b}'
+                        },
+                        data: stateData,
+                        emphasis: {
+                            itemStyle: {
+                                areaColor: '#ffb654',
+                                borderColor: '#999',
+                                borderWidth: 1
+                            }
+                        }
+                    }]
+                });
+            })
+            .catch(error => console.error('Failed to load map data:', error));
+    </script>
+</body>
+</html>
