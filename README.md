@@ -69,3 +69,4 @@ The model training process is managed in lstm_model.py:
  - Input: Merged data from all sources.
  - Output: Buy/Sell signals, confidence scores, and expected return rates based on trained LSTM predictions.
  - Evaluation: Mean Squared Error and accuracy metrics are used for model validation.
+
