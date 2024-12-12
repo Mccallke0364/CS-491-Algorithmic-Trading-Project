@@ -50,35 +50,23 @@ def get_data_for_all_stocks():
                 
                 continue
         
-    return dict, dataframe[["awarding_agency_name", "total_obligations"  ,"total_outlayed_amount"]]
+    return dict, dataframe[["awarding_agency_name", "total_outlayed_amount"]]
 
-dict_stock_dfs, usa_spending_data = get_data_for_all_stocks()
-
-full_dataframe = merge_dataframes(usa_spending_data, dict_stock_dfs)
-    #merges all the stock dataframes and usa spending based on the date the data was collected
-
-# print_df(full_dataframe, "full_df")
-print_df(full_dataframe.head(50), "full_df_head", location="created_dataframes/")
-
-full_dataframe_grouped = full_dataframe.set_index(["awarding_agency_name"]).dropna()#.groupby(["awarding_agency_name"])
-
-print_df(full_dataframe_grouped.head(50), "full_df_group_head", location="created_dataframes/")
-
-def PCA_create(df, File_ext):
-    PCA_dataframe = df
+def PCA_create(PCA_dataframe, File_ext):
     PCA_dataframe_std = stats.zscore(PCA_dataframe)
-    pca = PCA().fit(PCA_dataframe_std)
-    cum_var_explained = pca.explained_variance_ratio_.cumsum()
-    pca_needed = min([i for i in range(len(cum_var_explained)) if cum_var_explained[i]>.9])
+    pca = PCA(n_components=14).fit(PCA_dataframe_std)
+    # cum_var_explained = pca.explained_variance_ratio_.cumsum()
+    # pca_needed = min([i for i in range(len(cum_var_explained)) if cum_var_explained[i]>.9])
     scores = pca.transform(PCA_dataframe_std)
+    # print(scores.shape)
+    # print("There are {} variables in the original dataset and {} PCs are needed to represent at least 90% of the variation in the data".format(PCA_dataframe.shape[0], pca_needed))
     # print_df(PCA_dataframe, "scores", location="created_dataframes/")
-    type = df.index.to_numpy()
+    type = PCA_dataframe.index.to_numpy()
     # print(type.shape)
     # print(scores[:,0].shape)
-
     to_graph = pd.DataFrame({"PC1": scores[:,0], "PC2":scores[:,1], "type":type})
     fig, ax = plt.subplots()
-    sns.scatterplot(x="PC1", y="PC2", style="type",hue="type", data = to_graph)
+    sns.scatterplot(x="PC1", y="PC2", style="type", hue="type", data = to_graph)
     sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
     fig.savefig(f"PC1vsPC2_{File_ext}.png", dpi=500,bbox_inches="tight")
 
@@ -90,9 +78,9 @@ def PCA_create(df, File_ext):
     fig_1.savefig(f"PC2_component_contributions_{File_ext}.png", bbox_inches="tight")
 
     max_arg=contributions.PC1_contr.abs().argmax()
-    print("the funding that contributes the most to PC1 is the {} fund".format(max_arg))
+    # print("the funding that contributes the most to PC1 is the {} fund".format(PCA_dataframe.loc[max_arg]))
     min_arg=contributions.PC1_contr.abs().argmin()
-    print("the funding that contributes the least to PC1 is the {} fund".format(min_arg))
+    # print("the funding that contributes the least to PC1 is the {} fund".format())
     PCA_fund= pd.DataFrame(PCA_dataframe.iloc[:,max_arg])
     PCA_fund[f"{File_ext}"]= type
     # print(PCA_fund)
@@ -112,10 +100,29 @@ def PCA_create(df, File_ext):
     sns.move_legend(c, "upper left", bbox_to_anchor=(1, 1))
     fig_3.savefig(f"PC1_fund_least_exp_{File_ext}.png",bbox_inches="tight")
 
-# PCA_create(full_dataframe_grouped, "agency_sort")
-print_df(pd.DataFrame(full_dataframe.groupby(["awarding_agency_name"]).T), "award_stock", location="created_dataframes/")
-PCA_create(full_dataframe_grouped.T.groupby(["awarding_agency_name"]), "stock")
 
+
+dict_stock_dfs, usa_spending_data = get_data_for_all_stocks()
+
+full_dataframe = merge_dataframes(usa_spending_data, dict_stock_dfs)
+    #merges all the stock dataframes and usa spending based on the date the data was collected
+
+# print_df(full_dataframe, "full_df")
+# print_df(full_dataframe.head(50), "full_df_head", location="created_dataframes/")
+
+full_dataframe_grouped = full_dataframe.dropna().groupby(["awarding_agency_name"])
+for name, group in full_dataframe_grouped:
+    df=group.set_index(["total_outlayed_amount"]).drop(["awarding_agency_name"], axis="columns").dropna()
+    print_df(df, name, location="created_dataframes/")
+    PCA_create(df, f"{name[0]}")
+# print_df(full_dataframe_grouped.head(50), "full_df_group_head", location="created_dataframes/")
+
+
+# PCA_create(full_dataframe_grouped, "agency_sort")
+
+# print_df(full_dataframe_grouped, "award_stock", location="created_dataframes/")
+# # PCA_create(full_dataframe_grouped.T.groupby(["awarding_agency_name"]), "stock")
+# full_dataframe.get_group(x) for x in full_dataframe.groups]
 
 
 

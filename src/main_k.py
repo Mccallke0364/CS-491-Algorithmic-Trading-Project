@@ -37,7 +37,7 @@ print(train_seq)
     #building model, automatically takes the default number of stocks, (5), since it is not specified in the call
 model = build_model((train_seq.shape[1], train_seq.shape[2]))
 
-model_frame = implement_model(full_dataframe, model, train_seq, train_label, test_seq, test_label)
+model_frame = train_model(full_dataframe, model, train_seq, train_label, test_seq, test_label)
 print_df(model_frame, "implementdf")
 # print_df(implement_model(full_dataframe, model, train_seq, train_label, test_seq, test_label), "full_model_1")
     #used train_model_pre_split since the data has already been split into training and testing data
