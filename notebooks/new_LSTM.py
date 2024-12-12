@@ -19,7 +19,7 @@ tickers = ['NGL', 'TSLA', 'AAPL', 'V', 'NSRGY']
 start_date = '2023-10-01'
 end_date = '2024-12-30'
 
-#LOAD MERGED DATASET FROM CSV
+#LOAD MERGED DATASET FROM CSV 'lstm_input.csv'
 
 # Date	        total_obligations	total_outlayed_amount	awarding_agency_name	recipient_name	action_type	o_NGL	h_NGL	l_NGL	c_NGL	v_NGL	o_TSLA	h_TSLA	l_TSLA	c_TSLA	v_TSLA	o_AAPL	h_AAPL	l_AAPL	c_AAPL	v_AAPL	o_V	h_V	l_V	c_V	v_V	o_NSRGY	h_NSRGY	l_NSRGY	c_NSRGY	v_NSRGY
 # 10/28/2024	0		            Department of Housing and Urban Development	UNITED WHOLESALE MORTGAGE, LLC	NEW	4.18	4.24	4.06	4.08	96477	270	273.536	262.24	262.51	104072158	233.32	234.73	232.55	233.4	32964281	282.04	284.64	281.53	284.19	4118591	97.48	97.8399	97.425	97.55	337937
