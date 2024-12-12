@@ -10,7 +10,7 @@ from alpaca.data import StockHistoricalDataClient, TimeFrame
 from alpaca.data.requests import StockQuotesRequest, StockBarsRequest
 from alpaca.trading.requests import GetOrdersRequest
 from alpaca.trading.enums import OrderStatus
-
+import alpaca_trade_api as tradeapi
 
 # %%
 # Alpaca API credentials
@@ -22,7 +22,7 @@ data_client = StockHistoricalDataClient(ALPACA_API_KEY, ALPACA_SECRET_KEY)
 trading_client = TradingClient(ALPACA_API_KEY, ALPACA_SECRET_KEY)
 
 alpaca = api.REST(ALPACA_API_KEY, ALPACA_SECRET_KEY, BASE_URL)
-
+api2 = tradeapi.REST(ALPACA_API_KEY, ALPACA_SECRET_KEY, BASE_URL)
 # what to do if you can't get stock 
 def accountCash():
     account = alpaca.get_account()
@@ -38,6 +38,13 @@ def get_latest_stock_price(symbol):
     return latest_trade.p
 lastest_apple = get_latest_stock_price(symbol='AAPL')
 def closePostion(symbol):
+    orders = api2.list_orders(status='open')
+
+    # Find and cancel the stop sell order
+    for order in orders:
+        if order.type == 'stop' and order.side == 'sell':
+            api2.cancel_order(order.id)
+            print(f"Cancelled stop sell order for {order.symbol}")
     alpaca.close_position(symbol)  
 
 
@@ -114,7 +121,7 @@ def getData(symbol):
 
     bars_df = data_client.get_stock_bars(request_params).df.tz_convert('America/New_York', level=1)
     return bars_df
-print(getData("AAPL"))
+
 
 if __name__ == '__main__':
     print(getPostion())

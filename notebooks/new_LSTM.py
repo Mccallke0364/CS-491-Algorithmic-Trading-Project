@@ -17,7 +17,7 @@ tf.compat.v1.enable_eager_execution()
 #DEFINE TICKERS AND DATE RANGE
 tickers = ['NGL', 'TSLA', 'AAPL', 'V', 'NSRGY']
 start_date = '2023-10-01'
-end_date = '2024-12-30'
+end_date = '2024-10-30'
 
 #LOAD MERGED DATASET FROM CSV 'lstm_input.csv'
 
@@ -34,6 +34,7 @@ merged_df.index = pd.to_datetime(merged_df.index, unit='ms')
 
 df = merged_df.drop(columns=['total_outlayed_amount'])
 df = df.fillna(0)
+
 #df = df.sample(frac = 0.3)
 
 print(df.head())
@@ -128,7 +129,7 @@ print(train_predictions)
 print("Testing predictions:")
 print(test_predictions)
 
-
+model.save('LSTM.keras')
 
 plt.figure(figsize=(10, 5))
 plt.plot(y_test[:, 0], label='Actual')
