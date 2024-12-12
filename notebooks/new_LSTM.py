@@ -34,7 +34,7 @@ merged_df.index = pd.to_datetime(merged_df.index, unit='ms')
 
 df = merged_df.drop(columns=['total_outlayed_amount'])
 df = df.fillna(0)
-df = df.sample(frac = 0.01)
+#df = df.sample(frac = 0.3)
 
 print(df.head())
 
@@ -96,7 +96,7 @@ model = Sequential()
 #model.add(LSTM(50, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
 model = Sequential([
         LSTM(50, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])),
-        Dropout(0.2),
+        #Dropout(0.2),
         LSTM(50),
         Dropout(0.2),
         Dense(num_stocks, activation='tanh')  # Using tanh activation
@@ -107,7 +107,7 @@ model.summary()
 
 #TRAIN MODEL
 print('TRAINING THE LSTM MODEL..._______________________________________\n')
-history = model.fit(X_train, y_train, epochs=20, batch_size=64, validation_split=0.2)
+history = model.fit(X_train, y_train, epochs=50, batch_size=64, validation_split=0.2)
 print('model has finished training\n')
 
 
@@ -127,6 +127,20 @@ print(train_predictions)
 
 print("Testing predictions:")
 print(test_predictions)
+
+
+
+plt.figure(figsize=(10, 5))
+plt.plot(y_test[:, 0], label='Actual')
+plt.plot(test_predictions[:, 0], label='Predicted')
+plt.legend()
+plt.title('Predictions vs Actual for c_NGL')
+plt.show()
+
+corr_matrix = df.corr()
+print(corr_matrix['c_NGL'].sort_values(ascending=False))
+
+
 
 # Calculate the evaluation metrics for the test set
 mse = mean_squared_error(y_test, test_predictions)

@@ -6,3 +6,10 @@ src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_6.csv
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241106.zip
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_4.csv
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_5.csv
+new_env/bin
+new_env/include
+new_env/lib
+new_env/lib64
+new_env/share
+new_env
+
