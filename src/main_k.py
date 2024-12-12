@@ -10,6 +10,7 @@ from model.utils import *
 
 
 ################---------Collect data from polygon.io and usa spending---------################
+time.sleep(60)
 dict_stock_dfs = get_data_for_multiple_tickers() 
     # a dictionary of each stocks dataframe 
     # set up with the default stocks of ['NGL', 'TSLA', 'AAPL', 'V', 'NSRGY'] and dates start_date = '2023-10-01' end_date = '2024-12-30' 
@@ -37,8 +38,17 @@ print(train_seq)
     #building model, automatically takes the default number of stocks, (5), since it is not specified in the call
 model = build_model((train_seq.shape[1], train_seq.shape[2]))
 
-model_frame = train_model(full_dataframe, model, train_seq, train_label, test_seq, test_label)
-print_df(model_frame, "implementdf")
+model_implementation= train_model(full_dataframe, model, train_seq, train_label, test_seq, test_label)
+plt.plot(model_implementation.history['accuracy'])
+plt.plot(model_implementation.history['val_accuracy'],ls="--")
+plt.plot(model_implementation.history['loss'])
+plt.plot(model_implementation.history['val_loss'])
+plt.title('Model Accuracy')
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend(['train','val','loss','val loss'], loc="best")
+plt.show()
+# print_df(model_frame, "implementdf")
 # print_df(implement_model(full_dataframe, model, train_seq, train_label, test_seq, test_label), "full_model_1")
     #used train_model_pre_split since the data has already been split into training and testing data
     #anything not specified has a default in the function call

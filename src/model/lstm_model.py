@@ -44,7 +44,7 @@ def model_atmpt_2(input_shape, num_stocks=5):
     print(model.summary())
     return model
 
-def train_model(model, X, y, epochs=20, batch_size=64, validation_split=0.2):
+def train_model(df, model, X, y, test_seq, test_label, epochs=3, batch_size=64, validation_split=0.2):
     """
     Trains the LSTM model.
 
@@ -61,6 +61,8 @@ def train_model(model, X, y, epochs=20, batch_size=64, validation_split=0.2):
     """
     
     history = model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split=validation_split)
+    test_predicted = model.predict(test_seq)
+    # test_p_df= pd.DataFrame(test_predicted)
     return history
 
 
