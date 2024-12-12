@@ -1,4 +1,5 @@
 
+
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_1.csv
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_2.csv
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_3.csv
@@ -12,4 +13,5 @@ new_env/lib
 new_env/lib64
 new_env/share
 new_env
+.venv
 

@@ -1,0 +1,9 @@
+tensorflow
+pandas
+numpy
+alpaca-trade-api
+matplotlib
+ipykernel
+scikit-learn
+alpaca-py
+python-dateutil
