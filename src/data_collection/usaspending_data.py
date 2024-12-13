@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def get_usaspending_data(filepath='src/data_collection/usaspending_data.csv'):
+def get_usaspending_data(filepath):
     """
     Loads government spending data from a CSV file.
     

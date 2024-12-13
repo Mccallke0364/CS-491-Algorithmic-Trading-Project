@@ -2,6 +2,7 @@
 import datetime
 import alpaca_trade_api as api
 import time
+# import alpaca
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import MarketOrderRequest,StopOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce

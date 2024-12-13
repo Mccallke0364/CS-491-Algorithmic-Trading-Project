@@ -1,4 +1,4 @@
-
+venv/
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_1.csv
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_2.csv
 src/data_collection/raw_data/FY2024_All_Contracts_Full_20241107_3.csv
@@ -16,4 +16,9 @@ notebooks/created_dataframes/award_stock.csv
 src/data_collection/usaspending_data.csv
 venv/lib/python3.8/site-packages/tensorflow/libtensorflow_cc.so.2
 venv/lib/python3.8/site-packages/clang/native/libclang.so
-venv/
+venv/notebooks/dataframes/usa_spend.txt
+src/dataframes/full_predict.csv
+venv/lib/python3.8/site-packages/tensorflow/libtensorflow_cc.so.2
+venv/lib/python3.8/site-packages/tensorrt_libs/libnvinfer.so.10
+venv/lib/python3.8/site-packages/tensorrt_libs/libnvinfer_builder_resource.so.10.7.0
+venv/lib/python3.8/site-packages/tensorrt_libs/libnvinfer_builder_resource_win.so.10.7.0

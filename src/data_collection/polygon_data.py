@@ -46,8 +46,8 @@ def get_historical_stock_data(ticker, start_date, end_date, POLYGON_API_KEY='q6Y
             df[f'{ticker}_SMA_50'] = df[f'c_{ticker}'].rolling(window=50).mean()
             df[f'{ticker}_Returns'] = df[f'c_{ticker}'].pct_change()
             df.dropna(inplace=True)
-            
-            return df[[f'o_{ticker}', f'h_{ticker}', f'l_{ticker}', f'c_{ticker}',f'v_{ticker}', f'{ticker}_SMA_10',f'{ticker}_SMA_50',f'{ticker}_Returns']]#df[['o', 'h', 'l', 'c', 'v']]
+            # f'o_{ticker}', f'h_{ticker}', f'l_{ticker}', f'c_{ticker}',f'v_{ticker}', f'{ticker}_SMA_10',f'{ticker}_SMA_50',
+            return df[[f'{ticker}_Returns']]#df[['o', 'h', 'l', 'c', 'v']]
         else:
             print(f"No data available for {ticker} in the specified date range.")
             return pd.DataFrame()

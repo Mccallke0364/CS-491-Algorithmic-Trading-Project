@@ -6,6 +6,7 @@ tf.get_logger().setLevel('ERROR')
 
 # Load the pre-trained model
 model = tf.keras.models.load_model('my_checkpoint.keras')
+model = tf.keras.models.load_model('src/saved_models/one_d_20')
 model.summary()
 
 # Threshold for buy/sell signals

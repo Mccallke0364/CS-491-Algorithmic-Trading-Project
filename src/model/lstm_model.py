@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
 
-def build_model(input_shape, num_stocks=42):
+def build_model(input_shape, num_stocks=44):
     """
     Builds and compiles an LSTM model.
 
@@ -30,14 +30,14 @@ def build_model(input_shape, num_stocks=42):
     print(model.summary())
     return model
 
-def model_atmpt_2(input_shape, num_stocks=5):
+def model_atmpt_2(input_shape, num_stocks=44):
     model = Sequential()
     model.add(LSTM(units=50, return_sequences=True, input_shape = input_shape))
 
     model.add(Dropout(0.1)) 
     model.add(LSTM(units=50))
 
-    model.add(Dense(42))
+    model.add(Dense(num_stocks))
 
     model.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_absolute_error'])
 
@@ -60,10 +60,10 @@ def train_model(df, model, X, y, test_seq, test_label, epochs=3, batch_size=64, 
     keras.callbacks.History: History object containing training history.
     """
     
-    history = model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split=validation_split)
-    test_predicted = model.predict(test_seq)
+    model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split=validation_split)
+    # test_predicted = model.predict(test_seq)
     # test_p_df= pd.DataFrame(test_predicted)
-    return history
+    return 
 
 
 def implement_model(df, model, train_seq, train_label, test_seq, test_label, epochs=3, batch_size=64, verbose=1):
@@ -81,15 +81,10 @@ def implement_model(df, model, train_seq, train_label, test_seq, test_label, epo
     Returns:
     keras.callbacks.History: History object containing training history.
     """
+    # MMS = MinMaxScaler()
     model.fit(train_seq, train_label, epochs=epochs, batch_size=batch_size, validation_data=(test_seq, test_label))
-    test_predicted = model.predict(test_seq)
-    test_p_df= pd.DataFrame(test_predicted)
-    print_df(test_p_df, "test_predict_a")
-    test_inverse_predicted = MMS.inverse_transform(test_predicted)
-    test_i_p_df= pd.DataFrame(test_inverse_predicted)
-    print_df(test_i_p_df, "inverse_predict_a")
-    new_df = pd.concat(df, test_p_df)
-    return new_df
+ 
+    return model
 
 def print_df(df, filename):
    with open(f"{filename}.txt", "w") as f:

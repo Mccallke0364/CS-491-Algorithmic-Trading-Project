@@ -57,7 +57,7 @@ def PCA_create(PCA_dataframe, File_ext):
     pca = PCA(n_components=14).fit(PCA_dataframe_std)
     # cum_var_explained = pca.explained_variance_ratio_.cumsum()
     # pca_needed = min([i for i in range(len(cum_var_explained)) if cum_var_explained[i]>.9])
-    scores = pca.transform(PCA_dataframe_std)
+    scores = pca.transform(PCA_dataframe)
     # print(scores.shape)
     # print("There are {} variables in the original dataset and {} PCs are needed to represent at least 90% of the variation in the data".format(PCA_dataframe.shape[0], pca_needed))
     # print_df(PCA_dataframe, "scores", location="created_dataframes/")
@@ -89,7 +89,15 @@ def PCA_create(PCA_dataframe, File_ext):
     # ax_2.legend(title="agency", )
     sns.move_legend(b, "upper left", bbox_to_anchor=(1, 1))
     fig_2.savefig(f"PC1_fund_effect_{File_ext}.png", bbox_inches="tight")
+    loadings = pd.DataFrame(pca.components_.T,
+    columns=[f'PC{_}' for _ in range(14)],
+    index=PCA_dataframe.columns)
+    print(loadings)
 
+    plt.plot(pca.explained_variance_ratio_)
+    plt.ylabel('Explained Variance')
+    plt.xlabel('Components')
+    plt.savefig(f"a{File_ext}.png", bbox_inches="tight")
 
     PCA_fund_least = pd.DataFrame(PCA_dataframe.iloc[:, min_arg])
     PCA_fund_least[f"{File_ext}"] = type
@@ -100,21 +108,25 @@ def PCA_create(PCA_dataframe, File_ext):
     sns.move_legend(c, "upper left", bbox_to_anchor=(1, 1))
     fig_3.savefig(f"PC1_fund_least_exp_{File_ext}.png",bbox_inches="tight")
 
-
-
 dict_stock_dfs, usa_spending_data = get_data_for_all_stocks()
 
 full_dataframe = merge_dataframes(usa_spending_data, dict_stock_dfs)
     #merges all the stock dataframes and usa spending based on the date the data was collected
-
+# full_dataframe.dropna(inplace=True)
+# full_data_frame_na=full_dataframe.set_index("awarding_agency_name")
+# full_data_frame_na.dropna(inplace=True)
+# full_dataframe=full_dataframe.groupby("awarding_agency_name")
+# print(full_dataframe.head())
+# print([a for a in full_dataframe.T])
 # print_df(full_dataframe, "full_df")
 # print_df(full_dataframe.head(50), "full_df_head", location="created_dataframes/")
-
-full_dataframe_grouped = full_dataframe.dropna().groupby(["awarding_agency_name"])
-for name, group in full_dataframe_grouped:
-    df=group.set_index(["total_outlayed_amount"]).drop(["awarding_agency_name"], axis="columns").dropna()
-    print_df(df, name, location="created_dataframes/")
-    PCA_create(df, f"{name[0]}")
+# full_dataframe_grouped = full_dataframe.dropna().groupby(["awarding_agency_name"])
+# PCA_create(full_dataframe,"full")
+PCA_create(full_dataframe.dropna().groupby("awarding_agency_name").mean(), "grouped")
+# for name, group in full_dataframe_grouped:
+#     df=group.set_index(["total_outlayed_amount"]).drop(["awarding_agency_name"], axis="columns").dropna()
+#     print_df(df, name, location="created_dataframes/")
+#     PCA_create(df, f"{name[0]}")
 # print_df(full_dataframe_grouped.head(50), "full_df_group_head", location="created_dataframes/")
 
 
@@ -123,8 +135,3 @@ for name, group in full_dataframe_grouped:
 # print_df(full_dataframe_grouped, "award_stock", location="created_dataframes/")
 # # PCA_create(full_dataframe_grouped.T.groupby(["awarding_agency_name"]), "stock")
 # full_dataframe.get_group(x) for x in full_dataframe.groups]
-
-
-
-
-

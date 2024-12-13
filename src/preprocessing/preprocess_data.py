@@ -33,12 +33,12 @@ def merge_data(stock_data, gov_data):
 
 def split_train_test(df):
     Ms = MinMaxScaler()
-    df[df.columns] = Ms.fit_transform(df)
+    scaled_df = pd.DataFrame(Ms.fit_transform(df), columns=df.columns)
 
     training_size= round(len(df)*0.80)
     train_data= df[:training_size]
     test_data=df[training_size:]
-    return train_data, test_data
+    return train_data, test_data, Ms
 
  
 
