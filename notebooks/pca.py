@@ -41,6 +41,7 @@ def get_data_for_all_stocks():
                 ticker = a[:-4]
                 df = pd.read_csv(f"dataframes/{a}", parse_dates=[date], header=0, index_col=0)
                 df.rename(columns={'vw': f'vw_{ticker}', "n": f"n_{ticker}"}, inplace=True)
+<<<<<<< HEAD
                 df.rename(columns={f'{ticker}_Returns': f'{ticker}'}, inplace=True)
                 dict[ticker]= df[[f"{ticker}"]]
                 # dict[a[:-4]] = df[[f'o_{ticker}', f'h_{ticker}', f'l_{ticker}', f'c_{ticker}',f'v_{ticker}', f"vw_{ticker}", f"n_{ticker}", f'{ticker}_SMA_10',f'{ticker}_SMA_50',f'{ticker}_Returns']]
@@ -107,11 +108,21 @@ def PCA_create(PCA_dataframe, File_ext):
     # ax_3.legend(title="agency")
     sns.move_legend(c, "upper left", bbox_to_anchor=(1, 1))
     fig_3.savefig(f"PC1_fund_least_exp_{File_ext}.png",bbox_inches="tight")
+=======
+                dict[a[:-4]] = df[[f'o_{ticker}', f'h_{ticker}', f'l_{ticker}', f'c_{ticker}',f'v_{ticker}', f"vw_{ticker}", f"n_{ticker}", f'{ticker}_SMA_10',f'{ticker}_SMA_50',f'{ticker}_Returns']]
+            else:
+                date = "Date"
+                dataframe = pd.read_csv(f"dataframes/{a}", parse_dates=[date], header=0, index_col=0)
+                continue
+        
+    return dict, dataframe
+>>>>>>> main
 
 dict_stock_dfs, usa_spending_data = get_data_for_all_stocks()
 
 full_dataframe = merge_dataframes(usa_spending_data, dict_stock_dfs)
     #merges all the stock dataframes and usa spending based on the date the data was collected
+<<<<<<< HEAD
 # full_dataframe.dropna(inplace=True)
 # full_data_frame_na=full_dataframe.set_index("awarding_agency_name")
 # full_data_frame_na.dropna(inplace=True)
@@ -135,3 +146,8 @@ PCA_create(full_dataframe.dropna().groupby("awarding_agency_name").mean(), "grou
 # print_df(full_dataframe_grouped, "award_stock", location="created_dataframes/")
 # # PCA_create(full_dataframe_grouped.T.groupby(["awarding_agency_name"]), "stock")
 # full_dataframe.get_group(x) for x in full_dataframe.groups]
+=======
+
+# print_df(full_dataframe, "full_df")
+print(full_dataframe.head())
+>>>>>>> main
