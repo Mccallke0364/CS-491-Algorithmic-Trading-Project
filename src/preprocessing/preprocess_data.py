@@ -31,6 +31,19 @@ def merge_data(stock_data, gov_data):
         merged_data = pd.concat([merged_data, merged], ignore_index=True)
     return merged_data
 
+def split_train_test(df):
+    Ms = MinMaxScaler()
+    scaled_df = pd.DataFrame(Ms.fit_transform(df), columns=df.columns)
+
+    training_size= round(len(df)*0.80)
+    train_data= df[:training_size]
+    test_data=df[training_size:]
+    return train_data, test_data, Ms
+
+ 
+
+
+
 def create_sequences(df, window_size=30, column_A="Date"):
     """
     Prepares data for LSTM by reshaping it into a 3D array.
@@ -42,11 +55,22 @@ def create_sequences(df, window_size=30, column_A="Date"):
     Returns:
     np.array, np.array: The reshaped features and targets.
     """
-    for row in range(0, len(df), window_size):
-        print(df)
-        values = df.values#drop(columns=[column_A]).values
-        X, y = [], []
-        for i in range(window_size, len(values)):
-            X.append(values[i-window_size:i, :-1])
-            y.append(values[i, -1])
+    sequences = []
+    labels = []
+    strt_idx = 0
+    for stp_idx in range(window_size, len(df)):
+        sequences.append(df.iloc[strt_idx:stp_idx].values)
+        labels.append(df.iloc[stp_idx].values)
+        strt_idx+=1
+    return(np.array(sequences), np.array(labels))
+    
+
+
+    #previous thought which was close but not complete
+    print(df)
+    values = df.values#drop(columns=[column_A]).values
+    X, y = [], []
+    for i in range(window_size, len(values)):
+        X.append(values[i-window_size:i, :-1])
+        y.append(values[i, -1])
     return np.array(X), np.array(y)
