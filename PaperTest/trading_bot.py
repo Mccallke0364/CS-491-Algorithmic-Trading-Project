@@ -86,7 +86,7 @@ def main():
 
     scaler = StandardScaler()
     numeric_data = scaler.fit_transform(numeric_df)
-
+    
     #CREATE SEQUENCES
     X_list, Y_list = [], []
     #define sequence length
@@ -114,7 +114,7 @@ def main():
     train_size = int(len(X) * 0.8)
     X_train, X_test = X[: train_size], X[train_size:]
     y_train, y_test = y[: train_size], y[train_size:]
-
+    print(X_test)
     # Reshape for LSTM input (add batch dimension)
     X_train = X_train.reshape(X_train.shape[0], X_train.shape[1], X_train.shape[2])
     X_test = X_test.reshape(X_test.shape[0], X_test.shape[1], X_test.shape[2])
